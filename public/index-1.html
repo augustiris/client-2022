@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NutriKit Food Planner</title>
+  <meta name="description" content="NutriKit Food Planner">
+  <meta name="author" content="Jessica Ahls">
+  <link rel="stylesheet" href="css/nutrikit.css">
+  <script type="text/javascript" src="js/data.js"></script>
+  <script type="text/javascript" src="js/nutrikit.js"></script>
+
+</head>
+<body style="font-family: Segoe UI;">
+    <h1>NutriKit Food Planner</h1>
+    <h3>NutriKit allows you to select your groceries, and track your nutritional progress (good or bad)</h3>
+    
+    <div class="listbox">
+        <div>
+            <p>Categories</p>
+            <select name="food category" id="food-category" onclick="updateMenu()">
+                <option disabled selected value style="display:none"></option>
+                <option value="protein">Protein</option>
+                <option value="fruits">Fruits</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="dairy">Dairy</option>
+                <option value="grain">Grain</option>
+            </select>
+        </div>
+        <div>
+            <p>Menu Items</p>
+            <select name="menu item" id="menu-item" size="5" onclick="changeDirection('add')">
+                <option value="">Select a category</option>
+            </select>
+        </div>
+        <div class="send-button">
+            <button id="move-item" onclick="moveItem()">>></button>
+        </div>
+        <div>
+            <p>Selected Items</p>
+            <select name="selected item" id="selected-item" size="5" onclick="changeDirection('remove')">
+            </select>
+            <p id="total-calories">Total Calories: 0</p>
+        </div>
+    </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+* {
+    font-family: Segoe UI;
+}
+
+body {
+    background-color:#Fff8dc;
+}
+
+h1, h3{
+    text-align:center;
+}
+
+.listbox {
+    display: flex;
+    justify-content: center;    
+}
+
+.listbox > div {
+    margin: 10px;
+    padding: 20px;
+}
+
+.send-button {
+    display: flex;
+    align-items: center;
+}
+
+#menu-item, #selected-item {
+    width: 15em;
+}

@@ -1,0 +1,61 @@
+import unittest
+import json
+from server.db.init_menu import initializeMenu
+from server.db.swen_344_db_utils import exec_sql_file
+from tests.rest_utils import *
+
+class TestMenuAPI(unittest.TestCase):
+
+    def setUp(self) -> None:
+        exec_sql_file('server/db/nutrition.sql')
+        initializeMenu()
+    
+    def test_get_menu(self):
+        result = get_rest_call(self, 'http://localhost:5000/menu')
+        self.assertEqual(25, len(result),"Should have returned a length of '25'")
+        
+    def test_get_item(self):
+        id = '0'
+        expected = [{'id': 0, 'name': 'steak', 'category': 'Proteins', 'calories': 300.0, 'totalFat': 5.73, 'saturatedFat': 2.183, 'transFat': 0.182, 'protein': 29.44, 'carbohydrate': 0.0}]
+        actual = get_rest_call(self, 'http://localhost:5000/menu/item/' + id)
+        self.assertEqual(expected, actual)
+
+    def test_update_item(self):
+        hdr = {'content-type': 'application/json'}
+        id = '0'
+        data = dict(
+            category = "soy",
+            calories = 10000,
+            totalFat = 0,
+            saturatedFat = 0,
+            transFat = 0,
+            protein = 2222222,
+            carbohydrate = 5,
+        )
+        jdata = json.dumps(data)
+        expected = {'category': 'soy', 'calories': 10000, 'total_fat': 0, 'saturated_fat': 0, 'trans_fat': 0, 'protein': 2222222, 'carbohydrate': 5}
+        actual = put_rest_call(self, 'http://localhost:5000/menu/update/' + id, jdata, hdr)
+        self.assertEqual(expected, actual)
+
+    def test_add_item(self):
+        hdr = {'content-type': 'application/json'}
+        data = dict(
+            name = "food",
+            category = "Vegetable",
+            calories = 12,
+            totalFat = 0,
+            saturatedFat = 0,
+            transFat = 0,
+            protein = 0.44,
+            carbohydrate = 0.89,
+        )
+        jdata = json.dumps(data)
+        expected = {'name': 'food', 'category': 'Vegetable', 'calories': 12, 'total_fat': 0, 'saturated_fat': 0, 'trans_fat': 0, 'protein': 0.44, 'carbohydrate': 0.89}
+        actual = post_rest_call(self, 'http://localhost:5000/menu/add', jdata, hdr)
+        self.assertEqual(expected, actual)
+
+    def test_delete_item(self):
+        id = '0'
+        expected = {'id': '0'}
+        actual = delete_rest_call(self, 'http://localhost:5000/menu/delete/' + id)
+        self.assertEqual(expected, actual)

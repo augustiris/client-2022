@@ -1,0 +1,19 @@
+.high {
+    background-color: palevioletred!important;
+}
+
+.low {
+    background-color: palegreen!important;
+}
+
+.add-btn {
+    background-color: #018749!important;
+}
+
+.remove-btn {
+    background-color: #7CB9E8!important;
+}
+
+.delete-btn {
+    background-color: red!important;
+}
